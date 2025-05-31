@@ -1,0 +1,8 @@
+{
+    "model_type": "OpenAI",
+    "base_url": "< put your base url here >",
+    "api_key": "< put your api key here >",
+    "model_name": "< specify the model name (e.g., deepseek-chat) >",
+    "temperature": 1.0,
+    "top_p": 1.0
+}

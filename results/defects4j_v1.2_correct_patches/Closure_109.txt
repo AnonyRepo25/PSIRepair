@@ -1,0 +1,7 @@
+private Node parseContextTypeExpression(JsDocToken token) {
+    Node typeExpr = parseTypeExpression(token);
+    if (typeExpr == null) {
+        return null;
+    }
+    return typeExpr;
+}

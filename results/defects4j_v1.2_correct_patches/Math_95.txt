@@ -1,0 +1,8 @@
+protected double getInitialDomain(double p) {
+    double d = getDenominatorDegreesOfFreedom();
+    // Ensure denominator degrees of freedom > 2 to avoid negative/zero values
+    if (d <= 2.0) {
+        return 1.0; // default value when degrees of freedom are too small
+    }
+    return d / (d - 2.0); // mean of F distribution
+}

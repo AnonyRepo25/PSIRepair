@@ -1,0 +1,5 @@
+public Line revert() {
+    final Line reverted = new Line(this);
+    reverted.direction = direction.negate();
+    return reverted;
+}

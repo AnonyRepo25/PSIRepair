@@ -1,0 +1,12 @@
+void setTo(Calendar c, int i) {
+    // Ensure we don't set invalid values that would cause calendar to roll over
+    int max = c.getActualMaximum(field);
+    int value = i - offset;
+    if (value > max) {
+        value = max;
+    }
+    c.set(field, value);
+    
+    // Force calendar to recompute fields immediately
+    c.get(field);
+}

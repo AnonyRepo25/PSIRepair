@@ -1,0 +1,11 @@
+public String setValue(String val) {
+    String oldVal = this.val; // get the old value directly from the attribute, not parent
+    if (parent != null) {
+        oldVal = parent.get(this.key);
+        int i = parent.indexOfKey(this.key);
+        if (i != Attributes.NotFound)
+            parent.vals[i] = val;
+    }
+    this.val = val;
+    return Attributes.checkNotNull(oldVal);
+}

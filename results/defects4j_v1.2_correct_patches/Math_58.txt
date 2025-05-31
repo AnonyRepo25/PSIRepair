@@ -1,0 +1,31 @@
+public double[] fit() {
+    final double[] guess = (new ParameterGuesser(getObservations())).guess();
+    
+    final ParametricUnivariateRealFunction f = new ParametricUnivariateRealFunction() {
+        private final ParametricUnivariateRealFunction g = new Gaussian.Parametric();
+
+        public double value(double x, double[] p) {
+            double v = Double.POSITIVE_INFINITY;
+            try {
+                v = g.value(x, p);
+            } catch (NotStrictlyPositiveException e) {
+                // Do nothing.
+            }
+            return v;
+        }
+
+        public double[] gradient(double x, double[] p) {
+            double[] v = { Double.POSITIVE_INFINITY,
+                           Double.POSITIVE_INFINITY,
+                           Double.POSITIVE_INFINITY };
+            try {
+                v = g.gradient(x, p);
+            } catch (NotStrictlyPositiveException e) {
+                // Do nothing.
+            }
+            return v;
+        }
+    };
+
+    return fit(f, guess);
+}

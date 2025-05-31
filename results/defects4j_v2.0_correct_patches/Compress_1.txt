@@ -1,0 +1,10 @@
+public void close() throws IOException {
+    if (!this.closed) {
+        try {
+            finish();
+        } finally {
+            super.close();
+            this.closed = true;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+public int read() throws IOException {
+    int current = super.read();
+    if (current == '\n') {
+        // Only increment if not preceded by \r (CRLF case)
+        if (lastChar != '\r') {
+            lineCounter++;
+        }
+    } else if (current == '\r') {
+        // Always increment for CR
+        lineCounter++;
+    }
+    lastChar = current;
+    return current;
+}

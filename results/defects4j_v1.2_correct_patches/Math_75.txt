@@ -1,0 +1,15 @@
+/**
+     * Returns the percentage of values that are equal to v
+     * (as a proportion between 0 and 1).
+     * <p>
+     * Returns <code>Double.NaN</code> if no values have been added.</p>
+     *
+     * @param v the value to lookup
+     * @return the proportion of values equal to v
+     */
+    public double getPct(Object v) {
+        if (v instanceof Integer) {
+            return getPct(Long.valueOf(((Integer) v).longValue()));
+        }
+        return getPct((Comparable<?>) v);
+    }

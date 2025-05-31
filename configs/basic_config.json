@@ -1,0 +1,12 @@
+{
+    "java7_home": "< path to java 7 home >",
+    "java8_home": "< path to java 8 home >",
+    "java17_home": "< path to java 17 home >",
+    "d4j_v120_home": "< path to defects4j v1.2.0 home >",
+    "d4j_v120_bug_info_file": "./datasets/d4j_v120_bug_infos.json",
+    "d4j_v200_home": "< path to defects4j v2.0.0 home >",
+    "d4j_v200_bug_info_file": "./datasets/d4j_v200_bug_infos.json",
+    "d4j_checkout_tmp_path": "./cache/d4j_projects",
+    "vul4j_checkout_tmp_path": "./cache/vul4j_projects",
+    "vul4j_bug_info_file": "./datasets/vul4j_sh_bug_infos.json"
+}

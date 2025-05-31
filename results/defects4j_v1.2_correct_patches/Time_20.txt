@@ -1,0 +1,29 @@
+public int parseInto(DateTimeParserBucket bucket, String text, int position) {
+    String str = text.substring(position);
+    int bestMatchLength = 0;
+    String bestMatchId = null;
+    
+    // Find the longest matching timezone ID
+    for (String id : ALL_IDS) {
+        if (str.startsWith(id) && id.length() > bestMatchLength) {
+            bestMatchLength = id.length();
+            bestMatchId = id;
+        }
+    }
+    
+    if (bestMatchId != null) {
+        // Check if there's a longer match that includes the current best match
+        // This handles cases like "America/Dawson" vs "America/Dawson_Creek"
+        for (String id : ALL_IDS) {
+            if (id.startsWith(bestMatchId) && str.startsWith(id) && id.length() > bestMatchLength) {
+                bestMatchLength = id.length();
+                bestMatchId = id;
+            }
+        }
+        
+        bucket.setZone(DateTimeZone.forID(bestMatchId));
+        return position + bestMatchLength;
+    }
+    
+    return ~position;
+}

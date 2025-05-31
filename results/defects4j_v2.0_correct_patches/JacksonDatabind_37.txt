@@ -1,0 +1,25 @@
+protected JavaType _narrow(Class<?> subclass) {
+    if (_class == subclass) {
+        return this;
+    }
+    // Should we check that there is a sub-class relationship?
+    // 15-Jan-2016, tatu: Almost yes, but there are some complications with
+    //    placeholder values, so no.
+    /*
+    if (!_class.isAssignableFrom(subclass)) {
+        throw new IllegalArgumentException("Class "+subclass.getName()+" not sub-type of "
+                +_class.getName());
+    }
+    */
+    // Create new type with all existing handlers and bindings
+    SimpleType newType = new SimpleType(subclass, _bindings, this, _superInterfaces,
+            _valueHandler, _typeHandler, _asStatic);
+    // Copy additional handlers if any
+    if (_typeHandler != null) {
+        newType = newType.withTypeHandler(_typeHandler);
+    }
+    if (_valueHandler != null) {
+        newType = newType.withValueHandler(_valueHandler);
+    }
+    return newType;
+}

@@ -1,0 +1,12 @@
+private boolean hasExceptionHandler(Node cfgNode) {
+    // Check if this node is inside a try block with catch handlers
+    for (Node current = cfgNode; current != null; current = current.getParent()) {
+        if (current.isTry()) {
+            Node catchBlock = NodeUtil.getCatchBlock(current);
+            if (catchBlock != null && NodeUtil.hasCatchHandler(catchBlock)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}

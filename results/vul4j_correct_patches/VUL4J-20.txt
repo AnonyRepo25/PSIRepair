@@ -1,0 +1,17 @@
+public float[] toFloatArray()
+{
+    float[] retval = new float[size()];
+    for (int i = 0; i < size(); i++)
+    {
+        COSBase base = getObject(i);
+        if (base instanceof COSNumber)
+        {
+            retval[i] = ((COSNumber)base).floatValue();
+        }
+        else
+        {
+            retval[i] = 0f; // default value when not a number
+        }
+    }
+    return retval;
+}

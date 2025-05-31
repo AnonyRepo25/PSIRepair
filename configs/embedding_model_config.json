@@ -1,0 +1,8 @@
+{
+    "type": "openai",
+    "local_cache_path": "./cache/embeddings",
+    "namespace": "< specify the namespace for local cache (e.g., text-embedding-3-small) >",
+    "model": "< specify the model name (e.g., text-embedding-3-small) >",
+    "base_url": "< put your base url here >",
+    "api_key": "< put your api key here >"
+}

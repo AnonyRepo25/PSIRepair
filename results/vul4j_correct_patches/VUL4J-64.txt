@@ -1,0 +1,9 @@
+final static private XMLStreamReader createXMLStreamReader(InputStream inputStream) throws XMLStreamException, IOException {
+    XMLInputFactory factory = XMLInputFactory.newInstance();
+    factory.setProperty(XMLInputFactory.IS_COALESCING, true);
+    factory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, true);
+    // Add these properties to ignore DTDs
+    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
+    return factory.createXMLStreamReader(wrapPrefixRemovingInputStream(inputStream));
+}

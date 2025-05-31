@@ -1,0 +1,30 @@
+private boolean isFoldableExpressBlock(Node n) {
+    if (n.getType() == Token.BLOCK) {
+      if (n.hasOneChild()) {
+        Node maybeExpr = n.getFirstChild();
+        if (NodeUtil.isExpressionNode(maybeExpr)) {
+          Node exprChild = maybeExpr.getFirstChild();
+          // Don't fold if it's a call that might be an event handler
+          // or uses array access
+          if (exprChild != null && exprChild.getType() == Token.CALL) {
+            Node callTarget = exprChild.getFirstChild();
+            if (callTarget != null) {
+              // Don't fold array access calls (f['x']())
+              if (callTarget.getType() == Token.GETELEM) {
+                return false;
+              }
+              // Don't fold potential event handlers (f.onchange())
+              if (callTarget.getType() == Token.GETPROP) {
+                String propName = callTarget.getLastChild().getString();
+                if (propName != null && propName.startsWith("on")) {
+                  return false;
+                }
+              }
+            }
+          }
+          return true;
+        }
+      }
+    }
+    return false;
+  }

@@ -1,0 +1,42 @@
+private void readObject(ObjectInputStream in)
+        throws IOException, ClassNotFoundException {
+    // read values
+    in.defaultReadObject();
+
+    // Verify repository path is valid before proceeding
+    if (repository != null) {
+        String path = repository.getPath();
+        if (path.indexOf('\0') != -1) {
+            throw new IOException("Repository path contains null character");
+        }
+        if (!repository.isDirectory()) {
+            throw new IOException("Repository is not a directory");
+        }
+    }
+
+    try {
+        OutputStream output = getOutputStream();
+        if (cachedContent != null) {
+            output.write(cachedContent);
+        } else {
+            FileInputStream input = new FileInputStream(dfosFile);
+            try {
+                IOUtils.copy(input, output);
+            } finally {
+                input.close();
+            }
+            dfosFile.delete();
+            dfosFile = null;
+        }
+        output.close();
+    } catch (IOException e) {
+        // Clean up if something went wrong
+        if (dfosFile != null && dfosFile.exists()) {
+            dfosFile.delete();
+            dfosFile = null;
+        }
+        throw e;
+    }
+
+    cachedContent = null;
+}

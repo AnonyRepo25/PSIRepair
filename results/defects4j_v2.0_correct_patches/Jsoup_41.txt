@@ -1,0 +1,11 @@
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
+
+    Element element = (Element) o;
+    
+    // Compare tag name and attributes to determine equality
+    return tag.equals(element.tag) && 
+           attributes().equals(element.attributes());
+}

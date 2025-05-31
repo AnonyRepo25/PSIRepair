@@ -1,0 +1,18 @@
+private Integer getBasicRow(final int col) {
+    Integer row = null;
+    for (int i = getNumObjectiveFunctions(); i < getHeight(); i++) {
+        final double entry = getEntry(i, col);
+        if (MathUtils.equals(entry, 1.0, epsilon)) {
+            if (row == null) {
+                row = i;
+            } else {
+                // more than one row has a 1 value in this column
+                return null;
+            }
+        } else if (!MathUtils.equals(entry, 0.0, epsilon)) {
+            // the entry is neither 0 nor 1
+            return null;
+        }
+    }
+    return row;
+}
